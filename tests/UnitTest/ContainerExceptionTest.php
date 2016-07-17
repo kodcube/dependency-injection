@@ -1,10 +1,10 @@
 <?php
-namespace KodCube\Container\Test\UnitTest;
+namespace KodeCube\DependencyInjection\Test\UnitTest;
 
-use KodCube\Container\Container;
+use KodeCube\DependencyInjection\Container;
 use Interop\Container\Exception\NotFoundException;
 use Interop\Container\Exception\ContainerException;
-use KodCube\Container\Test\Mocks;
+use KodeCube\DependencyInjection\Test\Mocks;
 
 class ContainerExceptionTest extends \PHPUnit_Framework_TestCase
 {

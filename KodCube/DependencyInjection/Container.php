@@ -1,5 +1,5 @@
 <?php
-namespace KodCube\Container;
+namespace KodeCube\DependencyInjection;
 
 use Interop\Container\ContainerInterface AS InteropInterface;
 use Psr\Log\LoggerInterface;

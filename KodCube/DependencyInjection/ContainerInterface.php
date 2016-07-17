@@ -1,5 +1,5 @@
 <?php
-namespace KodCube\Container;
+namespace KodeCube\DependencyInjection;
 
 /**
  * Describes the interface of a container that exposes methods to read its entries.

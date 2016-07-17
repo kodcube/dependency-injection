@@ -1,8 +1,8 @@
 <?php
-namespace KodCube\Container\Test\UnitTest;
+namespace KodeCube\DependencyInjection\Test\UnitTest;
 
-use KodCube\Container\Container;
-use KodCube\Container\Test\Mocks;
+use KodeCube\DependencyInjection\Container;
+use KodeCube\DependencyInjection\Test\Mocks;
 
 class ContainerHasMethodTest extends \PHPUnit_Framework_TestCase
 {

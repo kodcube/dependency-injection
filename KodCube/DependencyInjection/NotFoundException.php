@@ -1,5 +1,5 @@
 <?php
-namespace KodCube\Container;
+namespace KodeCube\DependencyInjection;
 
 use Interop\Container\Exception\NotFoundException AS NotFoundExceptionInterface;
 use Exception;

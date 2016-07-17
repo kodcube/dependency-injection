@@ -1,9 +1,9 @@
 <?php
-namespace KodCube\Container\Test\UnitTest;
+namespace KodeCube\DependencyInjection\Test\UnitTest;
 
-use KodCube\Container\Container;
+use KodeCube\DependencyInjection\Container;
 use Interop\Container\Exception\NotFoundException;
-use KodCube\Container\Test\Mocks;
+use KodeCube\DependencyInjection\Test\Mocks;
 
 /**
  * Test the use of Aliases/Service Locators 

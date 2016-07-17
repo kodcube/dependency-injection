@@ -1,5 +1,5 @@
 <?php
-namespace KodCube\Container\Test\Mocks;
+namespace KodeCube\DependencyInjection\Test\Mocks;
 
 
 class ClassMissingDependency
