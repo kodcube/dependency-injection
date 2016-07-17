@@ -1,0 +1,36 @@
+{
+    "name": "kodcube/dependency-injection-container",
+    "type": "library",
+    "keywords": ["di", "dependency injection", "container"],
+    "description": "Dependency Injection Container",
+    "licence": "MIT",
+    "authors": [
+        {
+            "name": "Steven Miles",
+            "email": "steve@kodcube.com",
+            "homepage": "https://www.kodcube.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php":">=7.0.0",
+        "container-interop/container-interop": "~1.0",
+        "psr/log": "~1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.5"
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "autoload": {
+        "psr-4": {
+             "KodCube\\DependencyInjectionContainer\\":"./KodCube/DependencyInjectionContainer"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+             "KodCube\\DependencyInjectionContainer\\Test":"./KodCube/DependencyInjectionContainer/tests"
+        }
+    }
+}
