@@ -31,26 +31,26 @@ So as long as you can create an array, the configuration is injected at construc
   * [Get Object from Container](#get-object-from-container)
   * [Check if Alias\Class Exists in Container](#check-if-aliasclass-exists-in-container)
   * [Make Object](#make-object)
-* [Methods](https://github.com/kodcube/dependency-injection-container/wiki/Container#methods)
-* [Aliases](https://github.com/kodcube/dependency-injection-container/wiki/Aliases-&-Service-Locators)
-* [AutoWiring](https://github.com/kodcube/dependency-injection-container/wiki/Autowiring)
+* [Methods](https://github.com/kodcube/dependency-injection/wiki/Container#methods)
+* [Aliases](https://github.com/kodcube/dependency-injection/wiki/Aliases-&-Service-Locators)
+* [AutoWiring](https://github.com/kodcube/dependency-injection/wiki/Autowiring)
 
-[Configuration Examples](https://github.com/kodcube/dependency-injection-container/wiki/Configuration)
+[Configuration Examples](https://github.com/kodcube/dependency-injection/wiki/Configuration)
 
 ## Usage
 
 ### Create Container
 
 ``` PHP
-$di = new KodeCube\DependencyInjectionContainer\Container();
+$di = new KodeCube\DependencyInjection\Container();
 
 or
 
-$di = new KodeCube\DependencyInjectionContainer\Container($config);
+$di = new KodeCube\DependencyInjection\Container($config);
 
 or
 
-$di = new KodeCube\DependencyInjectionContainer\Container([
+$di = new KodeCube\DependencyInjection\Container([
   'MyAlias' => 'Vendor\Package\Class',
   'Vendor\Package\Interface' => 'Vendor\Package\Class'
 ])
