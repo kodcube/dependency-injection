@@ -1,5 +1,5 @@
 {
-    "name": "kodcube/dependency-injection-container",
+    "name": "kodcube/dependency-injection",
     "type": "library",
     "keywords": ["di", "dependency injection", "container"],
     "description": "Dependency Injection Container",
