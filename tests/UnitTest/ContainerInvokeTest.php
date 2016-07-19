@@ -1,9 +1,9 @@
 <?php
-namespace KodeCube\DependencyInjection\Test\UnitTest;
+namespace KodCube\DependencyInjection\Test\UnitTest;
 
-use KodeCube\DependencyInjection\Container;
-use KodeCube\DependencyInjection\Exception\NotFoundException;
-use KodeCube\DependencyInjection\Test\Mocks;
+use KodCube\DependencyInjection\Container;
+use KodCube\DependencyInjection\Exception\NotFoundException;
+use KodCube\DependencyInjection\Test\Mocks;
 
 class ContainerInvokeTest extends \PHPUnit_Framework_TestCase
 {

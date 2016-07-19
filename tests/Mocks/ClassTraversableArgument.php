@@ -1,5 +1,5 @@
 <?php
-namespace KodeCube\DependencyInjection\Test\Mocks;
+namespace KodCube\DependencyInjection\Test\Mocks;
 
 class ClassTraversableArgument
 {
