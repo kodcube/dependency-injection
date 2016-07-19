@@ -25,12 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-             "KodCube\\DependencyInjectionContainer\\":"./KodCube/DependencyInjectionContainer"
+             "KodCube\\DependencyInjection\\":"./KodCube/DependencyInjection"
         }
     },
     "autoload-dev": {
         "psr-4": {
-             "KodCube\\DependencyInjectionContainer\\Test":"./KodCube/DependencyInjectionContainer/tests"
+             "KodCube\\DependencyInjection\\Test":"./KodCube/DependencyInjection/tests"
         }
     }
 }
