@@ -2,25 +2,28 @@
 namespace KodCube\DependencyInjection\Test\UnitTest;
 
 use KodCube\DependencyInjection\Container;
-use Interop\Container\Exception\NotFoundException;
-use KodCube\DependencyInjection\Test\Mocks;
+use PHPUnit\Framework\TestCase;
 
-class ContainerOverloadTest extends \PHPUnit_Framework_TestCase
+class ContainerOverloadTest extends TestCase
 {
 
     /**
      * Check Alias to Class Map
+     * @test
      */
     public function testOverloadAlias()
     {
         $container = new Container(['MyAlias' => 'stdClass']);
-        $container->MyAlias();
+        $this->assertInstanceOf('stdClass',$container->MyAlias());
     }
 
+    /**
+     * Test Overload Alias Not Found
+     * @test
+     * @expectedException Psr\Container\NotFoundExceptionInterface
+     */
     public function testOverloadAliasNotFound()
     {
-        $this->setExpectedException(NotFoundException::class);
-
         $container = new Container();
 
         $container->ClassNotExist();

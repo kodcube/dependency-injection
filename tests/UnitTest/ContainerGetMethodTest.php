@@ -2,20 +2,20 @@
 namespace KodCube\DependencyInjection\Test\UnitTest;
 
 use KodCube\DependencyInjection\Container;
-use Interop\Container\Exception\NotFoundException;
-use KodCube\DependencyInjection\Test\Mocks;
-
+use PHPUnit\Framework\TestCase;
+use stdClass;
 /**
  * Test the use of Aliases/Service Locators 
  */
 
-class ContainerAliasTest extends \PHPUnit_Framework_TestCase
+class ContainerGetMethodTest extends TestCase
 {
 
     /**
      * Check Alias to Class Map
+     * @test
      */
-    public function testAliasToClass()
+    public function AliasToClass()
     {
         $container = new Container(['MyAlias' => 'stdClass']);
         $this->assertInstanceOf('stdClass',$container->get('MyAlias'));
@@ -23,8 +23,9 @@ class ContainerAliasTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Check Alias to Builder Config
+     * @test
      */
-    public function testAliasToBuilderConfig()
+    public function AliasToBuilderConfig()
     {
         $container = new Container([
             'MyAlias' => ['class' => 'stdClass']
@@ -34,30 +35,31 @@ class ContainerAliasTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test Alias to Builder with Multiple Arguments
+     * @test
      */
-
-    public function testAliasToBuilderConfigWithMultipleArguments()
+    public function AliasToBuilderConfigWithMultipleArguments()
     {
         $container = new Container([
             'MyAlias' => [
-                'class' => Mocks\ClassMultipleArguments::class,
+                'class' => ClassMultipleArguments::class,
                 'argument1',
                 'argument2'
             ]
         ]);
+
         $this->assertObjectHasAttribute('argument0',$container->get('MyAlias'));
         $this->assertObjectHasAttribute('argument1',$container->get('MyAlias'));
     }
 
     /**
      * Test Alias to Builder with key/value pairs
+     * @test
      */
-
-    public function testAliasToBuilderConfigWithArrayArgument()
+    public function AliasToBuilderConfigWithArrayArgument()
     {
         $container = new Container([
             'MyAlias' => [
-                'class' => Mocks\ClassTraversableArgument::class,
+                'class' => ClassTraversableArgument::class,
                 'key1' => 'argument1',
                 'key2' => 'argument2'
             ]
@@ -69,23 +71,26 @@ class ContainerAliasTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test Class to Alias
+     * @test
      */
-
-    public function testClassToAlias()
+    public function ClassToAlias()
     {
         $container = new Container([
             'MyAlias' => [
-                'class' => Mocks\ClassMultipleArguments::class,
+                'class' => ClassMultipleArguments::class,
                 'argument1',
                 'argument2'
             ],
             'Vendor\Package\Class' => 'MyAlias'
         ]);
-        $this->assertInstanceOf(Mocks\ClassMultipleArguments::class,$container->get('Vendor\Package\Class'));
+        $this->assertInstanceOf(ClassMultipleArguments::class,$container->get('Vendor\Package\Class'));
     }
 
-
-    public function testInterfaceToAlias()
+    /**
+     * Test Interface to Alias
+     * @test
+     */
+    public function InterfaceToAlias()
     {
         $container = new Container([
             'MyAlias' => 'stdClass',
@@ -95,87 +100,148 @@ class ContainerAliasTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Aliasing One Class to another
+     * Test Aliasing One Class to another Class
+     * @test
      */
-/*
-    public function testClassToClass()
-    {
-        $container = new Container();
-
-        $container = $container->with(Mocks\Class1::class,Mocks\Class2::class);
-
-        $this->assertInstanceOf(Mocks\Class2::class,$container->get(Mocks\Class1::class));
-
-    }
-
-    public function testSetGetAliasToBuilderConfig()
-    {
-        $container = new Container();
-
-        $container = $container->with('MyAlias',[
-            'class' => 'stdClass'
-        ]);
-
-        $this->assertInstanceOf('stdClass',$container->get('MyAlias'));
-
-    }
-    
-    public function testSetGetAliasToObject()
-    {
-        $container = new Container();
-
-        $container->set('MyAlias',new \stdClass);
-
-        $this->assertInstanceOf('stdClass',$container->get('MyAlias'));
-
-    }
-
-    public function testSetGetAliasToAnonymousFunction()
-    {
-        $container = new Container();
-
-        $container->set('MyAlias',function () {
-            return new \stdClass;
-        });
-
-        $this->assertInstanceOf('stdClass',$container->get('MyAlias'));
-
-    }
-
-    public function testConfigHasAlias()
+    public function ClassToClass()
     {
         $container = new Container([
-            'MyAlias' => 'stdClass'
+            Class1::class => Class2::class
         ]);
 
-        $this->assertTrue($container->has('MyAlias'));
+        //$container = $container->with(Class1::class,Class2::class);
 
-    }
-    
-    public function testConfigHasClass()
-    {
-        $container = new Container();
-
-        $this->assertTrue($container->has('GunnaPHP\\DI\\Test\\Mocks\\ClassTraversableArgument'));
+        $this->assertInstanceOf(Class2::class,$container->get(Class1::class));
 
     }
 
-    public function testConfigHasNotAlias()
+    /**
+     * Test Alias to Anonymous Function
+     * @test
+     */
+    public function AliasToAnonymousFunction()
     {
         $container = new Container([
-            'MyAlias' => 'stdClass'
+            'MyAlias' => function ($container) {
+                return new stdClass();
+            }
         ]);
 
-        $this->assertFalse($container->has('MyAliasNot'));
+        $this->assertInstanceOf('stdClass',$container->get('MyAlias'));
 
     }
 
-    public function testConfigHasNotClass()
+
+    /*
+        public function testSetGetAliasToBuilderConfig()
+        {
+            $container = new Container();
+
+            $container = $container->with('MyAlias',[
+                'class' => 'stdClass'
+            ]);
+
+            $this->assertInstanceOf('stdClass',$container->get('MyAlias'));
+
+        }
+
+        public function testSetGetAliasToObject()
+        {
+            $container = new Container();
+
+            $container->set('MyAlias',new \stdClass);
+
+            $this->assertInstanceOf('stdClass',$container->get('MyAlias'));
+
+        }
+
+        public function testSetGetAliasToAnonymousFunction()
+        {
+            $container = new Container();
+
+            $container->set('MyAlias',function () {
+                return new \stdClass;
+            });
+
+            $this->assertInstanceOf('stdClass',$container->get('MyAlias'));
+
+        }
+
+        public function testConfigHasAlias()
+        {
+            $container = new Container([
+                'MyAlias' => 'stdClass'
+            ]);
+
+            $this->assertTrue($container->has('MyAlias'));
+
+        }
+
+        public function testConfigHasClass()
+        {
+            $container = new Container();
+
+            $this->assertTrue($container->has('GunnaPHP\\DI\\Test\\Mocks\\ClassTraversableArgument'));
+
+        }
+
+        public function testConfigHasNotAlias()
+        {
+            $container = new Container([
+                'MyAlias' => 'stdClass'
+            ]);
+
+            $this->assertFalse($container->has('MyAliasNot'));
+
+        }
+
+        public function testConfigHasNotClass()
+        {
+            $container = new Container();
+
+            $this->assertFalse($container->has('DoesNotExist'));
+
+        }
+    */
+}
+
+
+class ClassMultipleArguments
+{
+    public function __construct(...$args)
     {
-        $container = new Container();
-
-        $this->assertFalse($container->has('DoesNotExist'));
-
+        foreach ($args AS $i=>$argument) {
+            $this->{'argument'.$i} = $argument;
+        }
     }
-*/
+}
+
+class ClassTraversableArgument
+{
+    public function __construct($args)
+    {
+        foreach ($args AS $key=>$argument) {
+            $this->$key = $argument;
+        }
+    }
+}
+
+class Class1
+{
+    public function __construct(...$args)
+    {
+        foreach ($args AS $i=>$argument) {
+            $this->{'argument'.$i} = $argument;
+        }
+    }
+}
+
+class Class2
+{
+    public function __construct(...$args)
+    {
+        foreach ($args AS $i=>$argument) {
+            $this->{'argument'.$i} = $argument;
+        }
+    }
 }

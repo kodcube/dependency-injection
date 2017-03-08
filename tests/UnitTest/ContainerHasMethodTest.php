@@ -3,12 +3,14 @@ namespace KodCube\DependencyInjection\Test\UnitTest;
 
 use KodCube\DependencyInjection\Container;
 use KodCube\DependencyInjection\Test\Mocks;
+use PHPUnit\Framework\TestCase;
 
-class ContainerHasMethodTest extends \PHPUnit_Framework_TestCase
+class ContainerHasMethodTest extends TestCase
 {
 
     /**
      * Test Alias exists - True
+     * @test
      */
     public function testHasAlias()
     {
@@ -23,33 +25,36 @@ class ContainerHasMethodTest extends \PHPUnit_Framework_TestCase
     /**
      * Check if class exists either in dependency map,
      * but not in in autoloader
+     * @test
      */
-    public function testClassInMap()
+    public function classInMap()
     {
         $container = new Container([
-            'GunnaPHP\DI\Test\Mocks\DoesNotExist' => [
+            'DoesNotExist' => [
                 'argument1',
                 'argument2'
             ]
         ]);
 
-        $this->assertTrue($container->has(Mocks\ClassTraversableArgument::class));
+        $this->assertTrue($container->has('DoesNotExist'));
     }
 
     /**
      * Check if class exists as autowired dependency
+     * @test
      */
-    public function testHasClass()
+    public function hasAutowiredClass()
     {
         $container = new Container();
 
-        $this->assertTrue($container->has(Mocks\ClassTraversableArgument::class));
+        $this->assertTrue($container->has(TestCase::class));
     }
 
     /**
      * Test for Alias that does not exist
+     * @test
      */
-    public function testHasNotAlias()
+    public function aliasDoesNotExist()
     {
         $container = new Container();
 
@@ -59,12 +64,13 @@ class ContainerHasMethodTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test for Class that does not exist or cannot be autoloaded
+     * @test
      */
-    public function testHasNotClass()
+    public function noAliasNoClass()
     {
         $container = new Container();
 
-        $this->assertFalse($container->has('GunnaPHP\DI\Test\Mocks\DoesNotExist'));
+        $this->assertFalse($container->has('KodCube\DoesNotExist'));
 
     }
 

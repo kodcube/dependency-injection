@@ -1,49 +1,59 @@
 <?php
 namespace KodCube\DependencyInjection\Test\UnitTest;
 
-use KodCube\DependencyInjection\Container;
-use KodCube\DependencyInjection\Exception\NotFoundException;
-use KodCube\DependencyInjection\Test\Mocks;
+use KodCube\DependencyInjection\{ Container, NotFoundException };
+use stdClass;
+use PHPUnit\Framework\TestCase;
 
-class ContainerInvokeTest extends \PHPUnit_Framework_TestCase
+class ContainerInvokeTest extends TestCase
 {
 
     /**
      * Check Alias to Class Map
+     * @test
+     * @expectedException Psr\Container\NotFoundExceptionInterface
      */
-    public function testNotFoundAlias()
+    public function AliasNotFoundAlias()
     {
-        $this->setExpectedException(NotFoundException::class);
         $container = new Container(['MyAlias' => 'stdClass']);
-        $container('MyAliasNotFound');
+        $this->assertInstanceOf('stdClass',$container('MyAliasNotFound'));
     }
 
-    public function testGetClassNotFound()
+    /**
+     * Check Alias to Class Map
+     * @test
+     * @expectedException Psr\Container\NotFoundExceptionInterface
+     */
+
+    public function ClassNotFound()
     {
-        $this->setExpectedException(NotFoundException::class);
-
         $container = new Container();
-
         $container('ClassNotExist');
 
     }
 
-    public function testGetObjectParameter()
-    {
-        $this->setExpectedException('TypeError');
 
+    /**
+     * Check Passing Object as Parameter
+     * @test
+     * @expectedException TypeError
+     */
+    public function GetObjectParameter()
+    {
         $container = new Container();
 
-        $container(new \stdClass);
+        $container(new stdClass);
 
     }
+    /**
+     * Check Passing Integer as Parameter
+     * @test
+     * @expectedException Psr\Container\NotFoundExceptionInterface
+     */
 
-    public function testGetIntegerParameter()
+    public function GetIntegerParameter()
     {
-        $this->setExpectedException(NotFoundException::class);
-
         $container = new Container();
-
         $container(123);
 
     }
