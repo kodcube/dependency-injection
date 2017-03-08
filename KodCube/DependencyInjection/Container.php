@@ -1,11 +1,12 @@
 <?php
 namespace KodCube\DependencyInjection;
 
-use Interop\Container\ContainerInterface AS InteropInterface;
+use Psr\Container\ContainerInterface AS PsrContainerInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use ReflectionMethod;
 
-class Container implements InteropInterface,ContainerInterface
+class Container implements PsrContainerInterface,ContainerInterface
 {
     /**
     * Cached Aliases 
@@ -135,12 +136,11 @@ class Container implements InteropInterface,ContainerInterface
      * @param string $className Class Name
      * @param array $args Arguments to constructor
      */
-
     public function make($className,...$args)
     {
         if ( ! method_exists($className,'__construct') ) return new $className();
 
-        $reflector = new \ReflectionMethod($className,'__construct');
+        $reflector = new ReflectionMethod($className,'__construct');
         $methodParams = $reflector->getParameters();
         foreach($methodParams as $i=>$param)
         {
@@ -184,7 +184,11 @@ class Container implements InteropInterface,ContainerInterface
                 if ( is_array($parameter) && isset($parameter['class']) ) {
                     $class = $parameter['class'];
                     unset($parameter['class']);
-                    $args[$i] = $this->make($class,$parameter);
+                    if (self::isAssoc($parameter)) {
+                        $args[$i] = $this->make($class,$parameter);
+                        continue;
+                    }
+                    $args[$i] = $this->make($class,...$parameter);
                     continue;
                 } elseif (is_array($parameter) && ! self::isAssoc($parameter)) {
                     $args[$i] = $this->make($paramClass,...$parameter);
@@ -212,6 +216,7 @@ class Container implements InteropInterface,ContainerInterface
 
 
     /**
+     * Check if Container Knows about the requested object
      * @inheritdoc
      */
     
@@ -237,7 +242,6 @@ class Container implements InteropInterface,ContainerInterface
     *  
     * @return bool
     */
-   
     public function hasConfig(...$args):bool 
     {
         $cfg = $this->config;

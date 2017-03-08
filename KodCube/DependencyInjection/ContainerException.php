@@ -1,16 +1,14 @@
 <?php
 namespace KodCube\DependencyInjection;
 
-use Interop\Container\Exception\NotFoundException AS NotFoundExceptionInterface;
+use Psr\Container\ContainerExceptionInterface;
 use Exception;
 use Throwable;
 
 /**
  * @inheritdoc
  */   
-class ContainerException extends Exception 
-                         implements Throwable,
-                                    NotFoundExceptionInterface
+class ContainerException extends Exception implements Throwable, ContainerExceptionInterface
 {
     
 }
