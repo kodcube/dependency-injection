@@ -42,15 +42,15 @@ So as long as you can create an array, the configuration is injected at construc
 ### Create Container
 
 ``` PHP
-$di = new KodeCube\DependencyInjection\Container();
+$di = new KodCube\DependencyInjection\Container();
 
 or
 
-$di = new KodeCube\DependencyInjection\Container($config);
+$di = new KodCube\DependencyInjection\Container($config);
 
 or
 
-$di = new KodeCube\DependencyInjection\Container([
+$di = new KodCube\DependencyInjection\Container([
   'MyAlias' => 'Vendor\Package\Class',
   'Vendor\Package\Interface' => 'Vendor\Package\Class'
 ])
